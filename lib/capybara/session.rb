@@ -531,12 +531,20 @@ module Capybara
     #
     # Execute the block, accepting a alert.
     #
+    # @overload accept_alert(text, options = {}, &blk)
+    #   @param text [String, Regexp]  Text or regex to match against the text in the modal.  If not provided any prompt modal is matched
+    # @overload accept_alert(options = {}, &blk)
     # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
     # @return [String]  the message shown in the modal
     # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
-    def accept_alert(options={}, &blk)
+    def accept_alert(text_or_options=nil, options={}, &blk)
+      if text_or_options.is_a? Hash
+        options=text_or_options
+      else
+        options[:text]=text_or_options
+      end
+
       driver.accept_modal(:alert, options, &blk)
     end
 
@@ -544,12 +552,20 @@ module Capybara
     #
     # Execute the block, accepting a confirm.
     #
+    # @overload accept_confirm(text, options = {}, &blk)
+    #   @param text [String, Regexp]  Text or regex to match against the text in the modal.  If not provided any prompt modal is matched
+    # @overload accept_confirm(options = {}, &blk)
     # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
     # @return [String]  the message shown in the modal
     # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
-    def accept_confirm(options={}, &blk)
+    def accept_confirm(text_or_options=nil, options={}, &blk)
+      if text_or_options.is_a? Hash
+        options=text_or_options
+      else
+        options[:text]=text_or_options
+      end
+      
       driver.accept_modal(:confirm, options, &blk)
     end
 
@@ -557,26 +573,42 @@ module Capybara
     #
     # Execute the block, dismissing a confirm.
     #
+    # @overload dismiss_confirm(text, options = {}, &blk)
+    #   @param text [String, Regexp]  Text or regex to match against the text in the modal.  If not provided any prompt modal is matched
+    # @overload dismiss_confirm(options = {}, &blk)
     # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
     # @return [String]  the message shown in the modal
     # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
-    def dismiss_confirm(options={}, &blk)
+    def dismiss_confirm(text_or_options=nil, options={}, &blk)
+      if text_or_options.is_a? Hash
+        options=text_or_options
+      else
+        options[:text]=text_or_options
+      end
+      
       driver.dismiss_modal(:confirm, options, &blk)
     end
 
     ##
     #
-    # Execute the block, accepting a prompt.
+    # Execute the block, accepting a prompt, optionally responding to the prompt.
     #
+    # @overload accept_prompt(text, options = {}, &blk)
+    #   @param text [String, Regexp]  Text or regex to match against the text in the modal.  If not provided any prompt modal is matched
+    # @overload accept_prompt(options = {}, &blk)
     # @option options [String] :with   Response to provide to the prompt
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
     # @return [String]  the message shown in the modal
     # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
-    def accept_prompt(options={}, &blk)
+    def accept_prompt(text_or_options=nil, options={}, &blk)
+      if text_or_options.is_a? Hash
+        options=text_or_options
+      else
+        options[:text]=text_or_options
+      end
+      
       driver.accept_modal(:prompt, options, &blk)
     end
 
@@ -584,12 +616,20 @@ module Capybara
     #
     # Execute the block, dismissing a prompt.
     #
+    # @overload dismiss_prompt(text, options = {}, &blk)
+    #   @param text [String, Regexp]  Text or regex to match against the text in the modal.  If not provided any prompt modal is matched
+    # @overload dismiss_prompt(options = {}, &blk)
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
     # @return [String]  the message shown in the modal
     # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
-    def dismiss_prompt(options={}, &blk)
+    def dismiss_prompt(text_or_options=nil, options={}, &blk)
+      if text_or_options.is_a? Hash
+        options=text_or_options
+      else
+        options[:text]=text_or_options
+      end
+      
       driver.dismiss_modal(:prompt, options, &blk)
     end
 
